@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/constants/constant";
 import { setUser } from "@/redux/authSlice";
+import { toast } from "sonner";
 const Navbar = () => {
   const {user} = useSelector(store => store.auth);
   const dispatch = useDispatch();
@@ -51,19 +52,19 @@ const Navbar = () => {
             <Popover>
               <PopoverTrigger>
                 <Avatar className="cursor-pointer">
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src={user?.profile.profilePhoto} alt="@shadcn"/>
                 </Avatar>
               </PopoverTrigger>
               <PopoverContent className="w-80">
                 <div>
                   <div className="flex gap-4 space-y-2">
                     <Avatar className="cursor-pointer">
-                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarImage src={user?.profile.profilePhoto} />
                     </Avatar>
                     <div>
-                      <h4 className="font-medium">Tirth Patel</h4>
+                      <h4 className="font-medium">{user?.fullname}</h4>
                       <p className="text-sm text-muted-foreground">
-                        Lorem ipsum dolor sit amet.
+                        {user?.profile?.bio}
                       </p>
                     </div>
                   </div>
