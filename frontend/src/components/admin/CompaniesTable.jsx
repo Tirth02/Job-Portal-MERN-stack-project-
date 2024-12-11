@@ -11,8 +11,12 @@ import {
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Edit2, MoreHorizontal } from "lucide-react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CompaniesTable = () => {
+  const navigate = useNavigate();
+  const { companies } = useSelector((store) => store.company);
   return (
     <div>
       <Table>
@@ -26,26 +30,31 @@ const CompaniesTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableCell>
-            <Avatar>
-              <AvatarImage
-                src="https://www.shutterstock.com/image-vector/circle-line-simple-design-logo-600nw-2174926871.jpg"
-              />
-            </Avatar>
-          </TableCell>
-          <TableCell>Company Name</TableCell>
-          <TableCell>18-07-2024</TableCell>
-          <TableCell className="text-right cursor-pointer">
+          {companies.length <= 0 ? <span>You haven't registered company yet</span> :
+          companies?.map((company) => (
+            <tr>
+              <TableCell>
+                <Avatar>
+                  <AvatarImage src={company.logo} />
+                </Avatar>
+              </TableCell>
+              <TableCell>{company.name}</TableCell>
+              <TableCell>{company.createdAt.split("T")[0]}</TableCell>
+              <TableCell className="text-right cursor-pointer">
                 <Popover>
-                    <PopoverTrigger><MoreHorizontal/></PopoverTrigger>
-                    <PopoverContent className="w-32">
-                        <div className="flex items-center gap-2 w-fit cursor-pointer">
-                            <Edit2 className="w-4"/>
-                            <span>Edit</span>
-                        </div>
-                    </PopoverContent>
+                  <PopoverTrigger>
+                    <MoreHorizontal />
+                  </PopoverTrigger>
+                  <PopoverContent className="w-32">
+                    <div onClick={() => navigate(`/admin/companies/${company._id}`)} className="flex items-center gap-2 w-fit cursor-pointer">
+                      <Edit2 className="w-4" />
+                      <span>Edit</span>
+                    </div>
+                  </PopoverContent>
                 </Popover>
-          </TableCell>
+              </TableCell>
+            </tr>
+          ))}
         </TableBody>
       </Table>
     </div>
