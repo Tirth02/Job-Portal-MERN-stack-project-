@@ -28,7 +28,6 @@ const Signup = () => {
   };
 
   const changeFileHandler = (e) => {
-    console.log("Target files",e.target.files);
     setInput({ ...input, file: e.target.files?.[0] });
   };
 

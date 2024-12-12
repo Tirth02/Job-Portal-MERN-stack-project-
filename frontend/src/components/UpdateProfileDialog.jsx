@@ -59,7 +59,6 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                 },
                 withCredentials: true
             });
-            console.log("res is ",res);
             if(res.data.success)
             {
                 dispatch(setUser(res.data.user));
@@ -74,7 +73,6 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
       setLoading(false);
     }
     setOpen(false);
-    console.log(input);
   } 
 
   return (
