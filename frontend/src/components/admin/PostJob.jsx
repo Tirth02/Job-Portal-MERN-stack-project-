@@ -16,6 +16,7 @@ import axios from "axios";
 import { JOB_API_END_POINT } from "@/constants/constant";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 const companyArray = [];
 const PostJob = () => {
